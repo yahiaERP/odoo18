@@ -3,16 +3,18 @@
     'name': "account_withholding_tax",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+         Module retenue a la source en Tunisie selon les derniers lois de la ministére de
+        la finance en 2025 
+        """,
 
     'description': """
-        Module retenue a la source 
+        Module retenue a la source en Tunisie selon les derniers lois de la ministére de
+        la finance en 2025 
     """,
 
     'author': "yahia chehaidar",
     'category': 'Accounting',
-    'version': '0.1',
+    'version': '1.0',
 
     'depends': ['account'],
 
