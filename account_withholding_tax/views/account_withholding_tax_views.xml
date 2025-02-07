@@ -18,8 +18,8 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="name"/>
-                                <label for="rate"/>
+                                <field name="name" string="Nom du retenue "/>
+                                <label for="rate" string="taux de retenue "/>
                                 <div>
                                     <field name="rate" class="oe_inline"/>
                                     <span><strong>%</strong></span>
