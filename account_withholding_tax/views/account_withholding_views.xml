@@ -18,7 +18,6 @@
         <field name="name">account.withholding.customer.form</field>
         <field name="model">account.withholding</field>
         <field name="arch" type="xml">
-<!--            <form attrs="{'edit': [('state', 'in', ['draft'])]}">-->
             <form edit="state == 'draft'">
                 <header>
                     <button name="button_validate_withholding" string="Validate" type="object"
