@@ -1,0 +1,217 @@
+<odoo>
+    <!--Customer Withholding-->
+    <record id="account_withholding_customer_view_tree" model="ir.ui.view">
+        <field name="name">account.withholding.customer.tree</field>
+        <field name="model">account.withholding</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'draft'">
+                <field name="name"/>
+                <field name="partner_id" string="Customer"/>
+                <field name="date"/>
+                <field name="journal_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="account_withholding_customer_view_form" model="ir.ui.view">
+        <field name="name">account.withholding.customer.form</field>
+        <field name="model">account.withholding</field>
+        <field name="arch" type="xml">
+<!--            <form attrs="{'edit': [('state', 'in', ['draft'])]}">-->
+            <form edit="state == 'draft'">
+                <header>
+                    <button name="button_validate_withholding" string="Validate" type="object"
+                           invisible="state != 'draft'"
+                            class="oe_highlight o_invoice_validate"/>
+                    <button name="action_print" string="Imprimer RAS" type="object"
+                            invisible="state != 'done'"
+                            class="oe_highlight o_invoice_validate"/>
+                    <button name="button_reset_to_draft_withholding" string="Reset to Draft" type="object"
+                          invisible="state != 'draft'"
+                    />
+                    <field name="state" widget="statusbar" nolabel="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="button_account_move" string="Account Move"
+                                type="object" groups="account.group_account_user"
+                                invisible="not account_move_id"
+                                icon="fa-bars"/>
+                        <field name="account_move_id" invisible="1"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" string="Customer"
+                                   readonly="state == 'done'"
+                            />
+                            <field name="account_withholding_tax_ids" widget="many2many_tags"
+                            readonly="state == 'done'"
+                            />
+                        </group>
+                        <group>
+                            <field name="date" readonly="state == 'done'"
+                                   />
+                            <field name="journal_id" readonly="state == 'done'"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <div>
+                        <field name="account_invoice_ids" widget="many2many" nolabel="1"
+                               domain="[('partner_id','=',partner_id),('move_type','=','out_invoice'),('state','=','posted'),('payment_state','in',['not_paid','partial']),('withholding_id','=',False)]"
+                               context="{'tree_view_ref' : 'account.invoice_tree', 'default_move_type': 'out_invoice'}"
+                               readonly="state == 'done'"/>
+                    </div>
+                    <group>
+                        <label for="amount"/>
+                        <div class="o_row">
+                            <field name="amount"/>
+                            <field name="currency_id" invisible="1"/>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--        menu Customer-->
+    <record id="account_withholding_customer_action" model="ir.actions.act_window">
+        <field name="name">Customer Withholding</field>
+        <field name="res_model">account.withholding</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('type','=','out_withholding')]</field>
+        <field name="context">{'default_type': 'out_withholding'}</field>
+    </record>
+
+
+    <record id="account_withholding_customer_action_tree" model="ir.actions.act_window.view">
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="account_withholding_customer_view_tree"/>
+        <field name="act_window_id" ref="account_withholding_customer_action"/>
+    </record>
+
+
+    <record id="account_withholding_customer_action_form" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_withholding_customer_view_form"/>
+        <field name="act_window_id" ref="account_withholding_customer_action"/>
+    </record>
+
+    <menuitem id="account_withholding_customer_menu" name="Customer Withholding"
+              parent="account.menu_finance_receivables"
+              action="account_withholding_customer_action"/>
+
+
+<!--    Vendor Withholding-->
+    <record id="account_withholding_vendor_view_tree" model="ir.ui.view">
+        <field name="name">account.withholding.vendor.tree</field>
+        <field name="model">account.withholding</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'draft'">
+                <field name="name"/>
+                <field name="partner_id" string="Vendor"/>
+                <field name="date"/>
+                <field name="journal_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="account_withholding_vendor_view_form" model="ir.ui.view">
+        <field name="name">account.withholding.vendor.form</field>
+        <field name="model">account.withholding</field>
+        <field name="arch" type="xml">
+            <form edit="state == 'draft'">
+                <header>
+                    <button name="button_validate_withholding" string="Validate" type="object"
+                            invisible="state != 'draft'"
+                            class="oe_highlight o_invoice_validate"/>
+                    <button name="action_print" string="Imprimer RAS" type="object"
+                            invisible="state != 'done'"
+                            class="oe_highlight o_invoice_validate"/>
+
+
+                    <button name="button_reset_to_draft_withholding" string="Reset to Draft" type="object"
+                    invisible="state == 'draft'"
+                    />
+                    <field name="state" widget="statusbar" nolabel="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="button_account_move" string="Account Move"
+                                type="object" groups="account.group_account_user"
+                                invisible="not account_move_id"
+                                icon="fa-bars"/>
+                        <field name="account_move_id" invisible="1"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" string="Vendor"
+                                   readonly="state == 'done'"
+                            />
+                            <field name="account_withholding_tax_ids" widget="many2many_tags"
+                             readonly="state == 'done'"
+                            />
+                        </group>
+                        <group>
+                            <field name="date" readonly="state == 'done'"
+                                  />
+                            <field name="journal_id"  readonly="state == 'done'" />
+                        </group>
+                    </group>
+
+                    <div>
+                        <field name="account_invoice_ids" widget="many2many" nolabel="1"
+                               domain="[('partner_id','=',partner_id),('move_type','=','in_invoice'),('state','=','posted'),('payment_state','in',['not_paid','partial']),('withholding_id','=',False)]"
+                               context="{'tree_view_ref' : 'account.invoice_tree', 'default_move_type': 'out_invoice'}"
+                              readonly="state == 'done'"/>
+
+                    </div>
+                    <group>
+                        <label for="amount"/>
+                        <div class="o_row">
+                            <field name="amount"/>
+                            <field name="currency_id" invisible="1"/>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_withholding_vendor_action" model="ir.actions.act_window">
+        <field name="name">Vendor Withholding</field>
+        <field name="res_model">account.withholding</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('type','=','in_withholding')]</field>
+        <field name="context">{'default_type': 'in_withholding'}</field>
+    </record>
+
+    <record id="account_withholding_vendor_action_tree" model="ir.actions.act_window.view">
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="account_withholding_vendor_view_tree"/>
+        <field name="act_window_id" ref="account_withholding_vendor_action"/>
+    </record>
+
+    <record id="account_withholding_vendor_action_form" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_withholding_vendor_view_form"/>
+        <field name="act_window_id" ref="account_withholding_vendor_action"/>
+    </record>
+
+    <menuitem id="account_withholding_vendor_menu" name="Vendor Withholding"
+              parent="account.menu_finance_payables"
+              action="account_withholding_vendor_action"/>
+    <data>
+
+        <record id="seq_account_withholding" model="ir.sequence">
+            <field name="name">Account withholding</field>
+            <field name="code">account.withholding</field>
+            <field name="prefix">WI/</field>
+            <field name="padding">3</field>
+        </record>
+
+    </data>
+</odoo>
