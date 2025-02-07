@@ -7,12 +7,10 @@
         subtitle on modules listing or apps.openerp.com""",
 
     'description': """
-        Long description of module's purpose
+        Module retenue a la source 
     """,
 
-    'author': "Whitecape",
-    'website': "http://www.whitecapetech.com.com",
-
+    'author': "yahia chehaidar",
     'category': 'Accounting',
     'version': '0.1',
 

@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <list decoration-info="state == 'draft'">
                 <field name="name"/>
-                <field name="partner_id" string="Customer"/>
+                <field name="partner_id" string="Client"/>
                 <field name="date"/>
                 <field name="journal_id"/>
                 <field name="state"/>
@@ -42,10 +42,10 @@
                     </div>
                     <group>
                         <group>
-                            <field name="partner_id" string="Customer"
+                            <field name="partner_id" string="Client"
                                    readonly="state == 'done'"
                             />
-                            <field name="account_withholding_tax_ids" widget="many2many_tags"
+                            <field name="account_withholding_tax_ids" string="Type de retenue" widget="many2many_tags"
                             readonly="state == 'done'"
                             />
                         </group>
@@ -65,7 +65,7 @@
                                readonly="state == 'done'"/>
                     </div>
                     <group>
-                        <label for="amount"/>
+                        <label for="amount" string="Montant de retenue "/>
                         <div class="o_row">
                             <field name="amount"/>
                             <field name="currency_id" invisible="1"/>
@@ -148,7 +148,7 @@
                     </div>
                     <group>
                         <group>
-                            <field name="partner_id" string="Vendor"
+                            <field name="partner_id" string="Fournissur"
                                    readonly="state == 'done'"
                             />
                             <field name="account_withholding_tax_ids" widget="many2many_tags"
@@ -170,7 +170,7 @@
 
                     </div>
                     <group>
-                        <label for="amount"/>
+                        <label for="amount" string="Montant de retenue"/>
                         <div class="o_row">
                             <field name="amount"/>
                             <field name="currency_id" invisible="1"/>
