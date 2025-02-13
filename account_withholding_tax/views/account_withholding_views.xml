@@ -23,9 +23,6 @@
                     <button name="button_validate_withholding" string="Validate" type="object"
                            invisible="state != 'draft'"
                             class="oe_highlight o_invoice_validate"/>
-                    <button name="action_print" string="Imprimer RAS" type="object"
-                            invisible="state != 'done'"
-                            class="oe_highlight o_invoice_validate"/>
                     <button name="button_reset_to_draft_withholding" string="Reset to Draft" type="object"
                           invisible="state != 'draft'"
                     />

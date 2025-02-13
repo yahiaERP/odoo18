@@ -206,6 +206,3 @@ class AccountWithholding(models.Model):
             'type': 'ir.actions.act_window',
             'res_id': self.account_move_id.id,
         }
-    def action_print(self):
-        self.ensure_one()
-        return self.env.ref('account_withholding_tax.action_withholding_report').report_action(self)

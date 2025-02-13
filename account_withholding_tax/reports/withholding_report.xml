@@ -1,248 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <template id="withholding_report">
+        <template id="report_retenue">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="web.internal_layout">
                         <div class="page">
                             <style>
-                                td, th{border:solid 1px;text-align:center;}
+                            table{border:1px solid black;  }  td{     border:1px solid black;     }
                             </style>
-
-                            <p style="font-size: 1.1em; width:40%; display: inline-block;vertical-align:top;text-align: center;">
-                                <strong>REPUBLIQUE TUNISIENNE</strong>
+                            <p style="font-size: 1.1em;text-align: center;">
+                                <!-- <strong>REPUBLIQUE TUNISIENNE</strong>
                                 <br/>
                                 <strong>MINISTERE DU PLAN ET DES FINANCES</strong>
                                 <br/>
-                                <strong>DIRECTION GENERALE DU CONTROLE FISCAL</strong>
+                                <strong>DIRECTION GENERALE DU CONTROLE FISCAL</strong> -->
                             </p>
-                            <p style="margin-left:10%; font-size: 1.1em; width:40%; display: inline-block;vertical-align:top;text-align: center;">
-                                <strong>CERTIFICAT DE RETENUE D'IMPOT SUR LE REVENU</strong>
+                            <p style="font-size: 1.1em;vertical-align:top;text-align: center;">
+                                <strong>DUPLICATA DUCERTIFICAT DE RETENUE A LA SOURCE </strong><br/>
+                                 <strong>AU TITRE DE LA TVA ET DE L'IMPOT SUR LE REVENU OU DE L'IMPOT SUR LES SOCIETES </strong><br/>
+                                  <strong>ELABORE SUR LA PLATEFORME DE CERTIFICAT RS </strong>
                             </p>
-                            <t>
+                            <!-- <t>
                                 <p style="text-align:left;width:40%;margin:auto;">
                                     Retenue effectuée le
                                     <strong t-esc="data['date'].strftime('%d/%m/%Y')"/>
                                 </p>
-                            </t>
-
-                            <div style="border:solid 2px;padding:20px;padding-bottom: 90px;">
-                                <p style="text-align:left; width: 40%; display: inline-block;">
-                                    <strong>A - PERSONNE OU ORGANISME PAYEUR</strong>
-                                </p>
-                                <table style="display: inline-block;vertical-align: middle;width: 40%;margin-left: 19%">
-                                    <tbody style="">
+                            </t> -->
+                          
+                                <table  style="width: 100%; border-collapse: collapse;" border="1">
+                                    <thead style=" font-size: 18px;">
                                         <tr>
-                                            <td colspan="13" style="border: 0;text-align: center;">
-                                                <strong>IDENTIFIANT</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="40%" colspan="8">Matricule Fiscal</td>
-                                            <td width="20%">Code T.V.A.</td>
-                                            <td width="20%">Code Catégorie(2)</td>
-                                            <td width="20%" colspan="3">N° Etab Secondaire</td>
-                                        </tr>
-                                        <tr>
-                                            <t t-foreach="tax_id(data['company_id'].vat)" t-as="c">
-                                                <td t-esc="c"/>
-                                            </t>
-                                            <t t-foreach="tva_code(data['company_id'].vat)" t-as="c">
-                                                <td t-esc="c"/>
-                                            </t>
-                                            <t t-foreach="categ_code(data['company_id'].vat)" t-as="c">
-                                                <td t-esc="c"/>
-                                            </t>
-                                            <t t-foreach="etb_num(data['company_id'].vat)" t-as="c">
-                                                <td t-esc="c"/>
-                                            </t>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <p style="text-align:left;margin-top: 2%">
-                                    Dénomination de la personne ou de l'organisme payeur :
-                                    <strong t-esc="data['company_id'].name"/>
-                                </p>
-                                <p style="text-align:left">
-                                    Adresse :
-                                    <strong t-field="data['company_id'].street"/>
-                                    <strong t-field="data['company_id'].zip"/>
-                                    <strong t-field="data['company_id'].city"/>
-                                    -
-                                    <strong t-field="data['company_id'].country_id"/>
-                                </p>
-                                <table style="width: 100%;margin-bottom: 2%">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align:left;">B - RETENUES EFFECTUEES SUR :</th>
-                                            <th>MONTANT BRUT</th>
-                                            <th>RETENUE</th>
-                                            <th>MONTANT NET</th>
+                                            <th style="padding: 16px 20px; border: 1px solid ; width: 25%;">cree sur la plateforme le </th>
+                                            <th style=" border: 1px solid " >Numero chez le declarant</th>
+                                            <th style=" border: 1px solid " >Exercice de facturation</th>
+                                            <th style=" border: 1px solid">Date de paiement</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <t t-foreach="data['withholding_tab']" t-as="w">
-                                            <tr>
-                                                <td style="text-align:left;">
-                                                    <span t-esc="w"/>
+                                         <t t-foreach="docs" t-as="doc">
+                                            <tr style="text-align:center;">
+                                                <td>
+                                                <!-- <span t-field="doc.date.strftime('%d/%m/%Y')"/> -->
                                                 </td>
                                                 <td>
-                                                    <span t-esc="'%.3f' % data['withholding_tab'][w]['amount']"/>
+                                                <span  t-field="doc.numero"/>
                                                 </td>
                                                 <td>
-                                                    <span t-esc="'%.3f' % data['withholding_tab'][w]['withholding']"/>
+                                                <!-- <span t-field="doc.identifiant"/> -->
                                                 </td>
                                                 <td>
-                                                    <span t-esc="'%.3f' % data['withholding_tab'][w]['net_amount']"/>
+                                                <span t-field="doc.date"/>
                                                 </td>
-                                            </tr>
-                                        </t>
-                                        <t t-foreach="data['withholdings']" t-as="w">
-                                            <tr>
-                                                <td style="text-align:left;">
-                                                    <span t-esc="w"/>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </t>
+                                            </tr></t> 
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>TOTAL GENERAL</th>
-                                            <th>
-                                                <span t-esc="'%.3f' % data['amount']"/>
-                                            </th>
-                                            <th>
-                                                <span t-esc="'%.3f' % data['withholding']"/>
-                                            </th>
-                                            <th>
-                                                <span t-esc="'%.3f' % data['net_amount']"/>
-                                            </th>
+                                </table><br/><br/>
+
+                                 <table  style="width: 100%; border-collapse: collapse;margin-bottom: 20px;" border="1">
+                                   <thead >
+                                          <tr>
+                                            <th colspan="2" >Personne ou organisme payeur </th>
                                         </tr>
-                                    </tfoot>
+                                        <tr>
+                                            <th>Type identifiant</th>
+                                            <th>Matricule Fiscal</th>
+                                        </tr>
+
+                                         <tr>
+                                            <th> identifiant</th>
+                                            <th><span t-field="doc.partner_id.vat"/> </th>
+                                        </tr>
+
+                                        <tr>
+                                            <th> Nom et prenom ou raison sociale </th>
+                                            <th><span t-field="doc.partner_id.name"/> </th>
+                                        </tr>
+
+
+                                         <tr>
+                                            <th>Adresse </th>
+                                            <th><span t-field="doc.partner_id.street"/> </th>
+                                        </tr>
+
+                                           <tr>
+                                            <th>Activite /profession </th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
                                 </table>
 
-                                <p>
-                                    <strong>Factures:
-                                        <span t-esc="data['invoice']"/>
-                                    </strong>
-                                </p>
 
-                                <p style="text-align:left; width: 40%; display: inline-block;">
-                                    <strong>C - BENEFICIAIRE</strong>
-                                </p>
-                                <t t-if=" data['partner_id'].vat">
-                                    <table style="display: inline-block;vertical-align: middle;width: 40%;margin-left: 19%">
-                                        <tbody style="">
-                                            <tr>
-                                                <td colspan="13" style="border: 0;text-align: center;">
-                                                    <strong>IDENTIFIANT</strong>
+
+                                 <table  style="width: 100%; border-collapse: collapse;margin-bottom: 20px;" border="1">
+                                   <thead >
+                                          <tr>
+                                            <th colspan="2"> Benificiaire </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Type identifiant</th>
+                                            <th>Matricule Fiscal</th>
+                                        </tr>
+
+                                         <tr>
+                                            <th> identifiant</th>
+                                            <th><span t-field="doc.company_id.vat"/> </th>
+                                        </tr>
+
+                                        <tr>
+                                            <th> Nom et prenom ou raison sociale </th>
+                                            <th><span t-field="doc.company_id.name"/> </th>
+                                        </tr>
+
+
+                                         <tr>
+                                            <th>Adresse </th>
+                                            <th><span t-field="doc.company_id.street"/> </th>
+                                        </tr>
+
+                                           <tr>
+                                            <th>Activite /profession </th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                </table> <br/><br/>
+
+                                  <table  style="width: 100%; border-collapse: collapse;" border="1">
+                                    <thead style=" font-size: 18px;">
+                                        <tr>
+                                            <th style="padding: 16px 20px; border: 1px solid ; width: 25%;">Nature de l'operation </th>
+                                            <th style=" border: 1px solid " >Montant Hors TVA </th>
+                                            <th style=" border: 1px solid " >TVA due </th>
+                                            <th style=" border: 1px solid">Montant Total TVA comprise</th>
+                                             <th style=" border: 1px solid">TVA retenue a la source </th>
+                                            <th style=" border: 1px solid">Taux de la retenue</th>
+                                             <th style=" border: 1px solid">Moantant de la retenue </th>
+                                              <th style=" border: 1px solid">Moantant servi </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         <t t-foreach="docs" t-as="doc">
+                                            <tr style="text-align:center;">
+                                                <td>
+                                                <span t-field="doc.nature_operation"/>
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                <span t-field="doc.account_invoice_ids.amount_total"/>
+                                                </td>
+
+                                                <td>
+                                                <span t-field="doc.account_withholding_tax_ids"/>
+                                                </td>
+
+                                                 <td>
+                                                <span t-field="doc.amount"/>
+                                                </td>
+                                                 <td>
+                                                <!-- <span t-field="doc.amount"/> -->
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td width="40%" colspan="8">Matricule Fiscal</td>
-                                                <td width="20%">Code T.V.A.</td>
-                                                <td width="20%">Code Catégorie(2)</td>
-                                                <td width="20%" colspan="3">N° Etab Secondaire</td>
-                                            </tr>
-                                            <tr>
-                                                <t t-foreach="tax_id(data['partner_id'].vat)" t-as="c">
-                                                    <td t-esc="c"/>
-                                                </t>
-                                                <t t-foreach="tva_code(data['partner_id'].vat)" t-as="c">
-                                                    <td t-esc="c"/>
-                                                </t>
-                                                <t t-foreach="categ_code(data['partner_id'].vat)" t-as="c">
-                                                    <td t-esc="c"/>
-                                                </t>
-                                                <t t-foreach="etb_num(data['partner_id'].vat)" t-as="c">
-                                                    <td t-esc="c"/>
-                                                </t>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </t>
-                                <p style="margin-top: 2%;">
-                                    <!--                                    CIN :-->
-                                    <!--                                    <strong t-esc="data['partner_id'].ref"/>-->
-                                    <br/>
-                                    Nom, Prénom ou Raison Social :
-                                    <strong t-esc="data['partner_id'].name"/>
-                                    <br/>
-                                    Adresse Professionnelle :
-                                    <strong t-field="data['partner_id'].street"/>
-                                    <strong t-field="data['partner_id'].zip"/>
-                                    <strong t-field="data['partner_id'].city"/>
-                                    -
-                                    <strong t-field="data['partner_id'].country_id"/>
-                                </p>
-                                <hr style="border: solid black 1px"></hr>
-                                <p style="text-align:center;width: 60%;margin-left: 40%;">
-                                    Je soussigne, certifie exacts les renseignements figurant sur le présent
-                                    Certficat et m'expose aux sanctions prévues par la loi pour toute inexactitude.
-                                    <br/>
-                                    A
-                                    <span t-field="data['company_id'].city"/>
-                                    , LE
-                                    <span t-esc="data['date'].strftime('%d/%m/%Y')"/>
-                                    <br/>
-                                    <strong>Cachet et Signature du payeur</strong>
-                                </p>
-                            </div>
-                            <p>
-                                (1) Le certificat est délivré à l'occasion de chaque paiement toutefois pour les
-                                opérations répétitives le certificat peut être délivré trimestriellement
-                                <br/>
-                                (2) Code catégories : M. personnes morales-C.personne physiques-Industrie et commerce-P.
-                                Professions libérales N. employeurs non soumis à l'impôt sur le revenu ou sur les
-                                sociétés ( administrations et établissement publics) Etablissement secondaire .
-                            </p>
+                                             <tr>
+                                            <th style="padding: 16px 20px; border: 1px solid ; width: 25%;">Total </th>
+                                             <th style="padding: 16px 20px; border: 1px solid ; width: 25%;"> </th>
+                                             <th style="padding: 16px 20px; border: 1px solid ; width: 25%;"> </th>
+                                             <th style="padding: 16px 20px; border: 1px solid ; width: 25%;">  <span t-field="doc.account_invoice_ids.amount_total"/></th>
+                                             <th style="padding: 16px 20px; border: 1px solid ; width: 25%;"> </th>
+                                             <th style="padding: 16px 20px; border: 1px solid ; width: 25%;"> </th>
+                                             <th style="padding: 16px 20px; border: 1px solid ; width: 25%;">  <span t-field="doc.account_withholding_tax_ids"/> </th>
+                                             <th style="padding: 16px 20px; border: 1px solid ; width: 25%;"> </th>
+                                             
+                                        </tr>
+                                            
+                                            
+                                            </t> 
+                                    </tbody>
+                                </table><br/><br/>
                         </div>
-                    </t>
+                  
                 </t>
             </t>
         </template>
-
-        <!--        <report-->
-        <!--                id="action_withholding_report"-->
-        <!--                model="account.withholding"-->
-        <!--                string="Withholding Document"-->
-        <!--                report_type="qweb-pdf"-->
-        <!--                name="account_withholding_tax.withholding_report"-->
-        <!--                file="account_withholding_tax.withholding_report"-->
-        <!--                menu="True"-->
-        <!--        />-->
-
-        <record id="action_withholding_report" model="ir.actions.report">
-            <field name="name">Withholding Document</field>
-            <field name="model">account.withholding</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="report_name">account_withholding_tax.withholding_report</field>
-            <field name="report_file">account_withholding_tax.withholding_report</field>
-        </record>
-        <record id="paperformat_custom" model="report.paperformat">
-            <field name="name">A4</field>
-            <field name="default" eval="True"/>
-            <field name="format">A4</field>
-            <field name="page_height">0</field>
-            <field name="page_width">0</field>
-            <field name="orientation">Portrait</field>
-            <field name="margin_top">25</field>
-            <field name="margin_bottom">20</field>
-            <field name="margin_left">7</field>
-            <field name="margin_right">7</field>
-            <field name="header_line" eval="False"/>
-            <field name="header_spacing">15</field>
-            <field name="dpi">90</field>
-        </record>
-
-        <record id="action_withholding_report" model="ir.actions.report">
-            <field name="paperformat_id" ref="paperformat_custom"/>
-        </record>
-
-    </data>
 </odoo>

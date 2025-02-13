@@ -24,6 +24,7 @@
         'views/account_withholding_views.xml',
         'views/account_withholding_tax_views.xml',
         'reports/withholding_report.xml',
+        'reports/report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
