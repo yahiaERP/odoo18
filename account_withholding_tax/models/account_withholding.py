@@ -38,13 +38,13 @@ class AccountWithholding(models.Model):
     name = fields.Char(default=_set_name)
 
     state = fields.Selection([
-        ('draft', 'Draft'),
-        ('done', 'Done')
+        ('draft', 'Brouillon'),
+        ('done', 'validé')
     ], string='Withholding Tax Status', default='draft', readonly=True)
 
     type = fields.Selection([
-        ('out_withholding', 'Customer Withholding'),
-        ('in_withholding', 'Vendor Withholding')
+        ('out_withholding', 'Retenue client'),
+        ('in_withholding', 'Retenue Fournisseur ')
     ], readonly=True)
 
     date = fields.Date(string='Date', default=fields.Date.context_today, required=True)
