@@ -38,13 +38,13 @@ class AccountWithholding(models.Model):
     name = fields.Char(default=_set_name)
 
     state = fields.Selection([
-        ('draft', 'Draft'),
-        ('done', 'Done')
+        ('draft', 'Brouillon'),
+        ('done', 'validé')
     ], string='Withholding Tax Status', default='draft', readonly=True)
 
     type = fields.Selection([
-        ('out_withholding', 'Customer Withholding'),
-        ('in_withholding', 'Vendor Withholding')
+        ('out_withholding', 'Retenue client'),
+        ('in_withholding', 'Retenue Fournisseur ')
     ], readonly=True)
 
     date = fields.Date(string='Date', default=fields.Date.context_today, required=True)
@@ -206,6 +206,3 @@ class AccountWithholding(models.Model):
             'type': 'ir.actions.act_window',
             'res_id': self.account_move_id.id,
         }
-    def action_print(self):
-        self.ensure_one()
-        return self.env.ref('account_withholding_tax.action_withholding_report').report_action(self)
